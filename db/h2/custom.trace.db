@@ -23,9 +23,9 @@ org.h2.message.DbException: General error: "org.h2.mvstore.MVStoreException: The
 	at org.h2.Driver.connect(Driver.java:59)
 	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:681)
 	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:229)
-	at net.breezeware.propel.hibernate.hibernate.Hibernate.<init>(Hibernate.java:31)
-	at net.breezeware.propel.hibernate.hibernate.Hibernate.getConnection(Hibernate.java:27)
-	at net.breezeware.propel.hibernate.Main.main(Main.java:14)
+	at net.breezeware.propel.hibernate.Hibernate.<init>(Hibernate.java:31)
+	at net.breezeware.propel.hibernate.Hibernate.getConnection(Hibernate.java:27)
+	at net.breezeware.propel.Application.main(Main.java:14)
 Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "org.h2.mvstore.MVStoreException: The file is locked: /home/deepak/Work/accounts/breezeware/code/propel/reflection-annotation/custom-hibernate-demo/db/h2/custom.mv.db [2.1.214/7]" [50000-214]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:554)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
@@ -55,9 +55,9 @@ org.h2.message.DbException: General error: "org.h2.mvstore.MVStoreException: The
 	at org.h2.Driver.connect(Driver.java:59)
 	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:681)
 	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:229)
-	at net.breezeware.propel.hibernate.hibernate.Hibernate.<init>(Hibernate.java:31)
-	at net.breezeware.propel.hibernate.hibernate.Hibernate.getConnection(Hibernate.java:27)
-	at net.breezeware.propel.hibernate.Main.main(Main.java:15)
+	at net.breezeware.propel.hibernate.Hibernate.<init>(Hibernate.java:31)
+	at net.breezeware.propel.hibernate.Hibernate.getConnection(Hibernate.java:27)
+	at net.breezeware.propel.Application.main(Main.java:15)
 Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "org.h2.mvstore.MVStoreException: The file is locked: /home/deepak/Work/accounts/breezeware/code/propel/reflection-annotation/custom-hibernate-demo/db/h2/custom.mv.db [2.1.214/7]" [50000-214]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:554)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
@@ -87,9 +87,9 @@ org.h2.message.DbException: General error: "org.h2.mvstore.MVStoreException: The
 	at org.h2.Driver.connect(Driver.java:59)
 	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:681)
 	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:229)
-	at net.breezeware.propel.hibernate.hibernate.Hibernate.<init>(Hibernate.java:30)
-	at net.breezeware.propel.hibernate.hibernate.Hibernate.getConnection(Hibernate.java:26)
-	at net.breezeware.propel.hibernate.Main.main(Main.java:16)
+	at net.breezeware.propel.hibernate.Hibernate.<init>(Hibernate.java:30)
+	at net.breezeware.propel.hibernate.Hibernate.getConnection(Hibernate.java:26)
+	at net.breezeware.propel.Application.main(Main.java:16)
 Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "org.h2.mvstore.MVStoreException: The file is locked: /home/deepak/Work/accounts/breezeware/code/propel/reflection-annotation/custom-hibernate-demo/db/h2/custom.mv.db [2.1.214/7]" [50000-214]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:554)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
@@ -102,3 +102,25 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: /home/deepak/Wor
 	... 14 more
 2022-07-12 16:36:05 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-214]
+2022-07-12 17:16:02 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "CREDIT" not found; SQL statement:
+select * from Transaction where type = CREDIT [42122-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:244)
+	at org.h2.expression.ExpressionColumn.optimizeOther(ExpressionColumn.java:226)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:213)
+	at org.h2.expression.condition.Comparison.optimize(Comparison.java:140)
+	at org.h2.expression.Expression.optimizeCondition(Expression.java:148)
+	at org.h2.command.query.Select.prepareExpressions(Select.java:1177)
+	at org.h2.command.query.Query.prepare(Query.java:218)
+	at org.h2.command.Parser.prepareCommand(Parser.java:575)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:631)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:554)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:92)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:288)
+	at net.breezeware.propel.hibernate.Hibernate.read(Hibernate.java:141)
+	at net.breezeware.propel.Application.main(Main.java:25)

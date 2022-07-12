@@ -1,4 +1,4 @@
-package net.breezeware.propel.hibernate.annotation;
+package net.breezeware.propel.annotation;
 
 import java.lang.annotation.*;
 

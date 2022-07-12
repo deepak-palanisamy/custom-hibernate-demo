@@ -1,9 +1,9 @@
-package net.breezeware.propel.hibernate.entity;
+package net.breezeware.propel.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.breezeware.propel.hibernate.annotation.Column;
-import net.breezeware.propel.hibernate.annotation.PrimaryKey;
+import net.breezeware.propel.annotation.Column;
+import net.breezeware.propel.annotation.PrimaryKey;
 
 @Data
 @NoArgsConstructor

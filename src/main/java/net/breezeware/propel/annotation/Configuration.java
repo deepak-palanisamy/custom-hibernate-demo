@@ -1,12 +1,12 @@
-package net.breezeware.propel.hibernate.annotation;
+package net.breezeware.propel.annotation;
 
-import java.lang.annotation.*;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-@Documented
 @Retention(RUNTIME)
 @Target(TYPE)
-public @interface Table {
+public @interface Configuration {
 }

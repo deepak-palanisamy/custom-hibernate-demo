@@ -1,19 +1,17 @@
-package net.breezeware.propel.hibernate.hibernate;
+package net.breezeware.propel.hibernate;
 
-import net.breezeware.propel.hibernate.annotation.Column;
-import net.breezeware.propel.hibernate.annotation.PrimaryKey;
+import net.breezeware.propel.annotation.Column;
+import net.breezeware.propel.annotation.PrimaryKey;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import static java.lang.Boolean.TRUE;
 
@@ -100,7 +98,7 @@ public class Hibernate<T> {
 
     public <T> T read(Class<T> tClass, int key) throws SQLException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Field[] declaredFields = tClass.getDeclaredFields();
-         Field primaryKeyField = null;
+        Field primaryKeyField = null;
         for (Field field : declaredFields) {
             if (field.isAnnotationPresent(PrimaryKey.class)) {
                 primaryKeyField = field;
@@ -125,6 +123,48 @@ public class Hibernate<T> {
             }
         }
         return t;
+    }
 
+    public <T> List<T> read(Class<T> tClass, String key, String value) throws SQLException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        Field[] declaredFields = tClass.getDeclaredFields();
+//        Field primaryKeyField = null;
+        Field resultField = null;
+        for (Field field : declaredFields) {
+//            if (field.isAnnotationPresent(PrimaryKey.class)) {
+//                primaryKeyField = field;
+//            }
+            if (field.getName().equals(key)) {
+                resultField = field;
+            }
+        }
+        String readSqlQuery = "select * from " + tClass.getSimpleName() + " where " + resultField.getName() + " = '" + value + "'";
+        PreparedStatement preparedStatement = connection.prepareStatement(readSqlQuery);
+        ResultSet resultSet = preparedStatement.executeQuery();
+//        System.out.println("ResultSet - " + resultSet);
+//        resultSet.next();
+        List<T> ts = new ArrayList<>();
+        while (resultSet.next()) {
+            T t = tClass.getConstructor().newInstance();
+
+            for (Field field : declaredFields) {
+                field.setAccessible(TRUE);
+                if (field.getType() == int.class)
+                    field.set(t, resultSet.getInt(field.getName()));
+                else if (field.getType() == String.class)
+                    field.set(t, resultSet.getString(field.getName()));
+//                if (field == primaryKeyField)
+//                    field.set(t, resultSet.getInt(primaryKeyField.getName()));
+//                else if (field.isAnnotationPresent(Column.class)) {
+//                    if (field.getType() == int.class)
+//                        field.set(t, resultSet.getInt(field.getName()));
+//                    else if (field.getType() == String.class)
+//                        field.set(t, resultSet.getString(field.getName()));
+//                }
+            }
+            ts.add(t);
+        }
+//        System.out.println("ts - " + ts);
+
+        return ts;
     }
 }

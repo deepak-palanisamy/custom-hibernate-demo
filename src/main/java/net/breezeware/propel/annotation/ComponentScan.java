@@ -1,0 +1,13 @@
+package net.breezeware.propel.annotation;
+
+import java.lang.annotation.*;
+
+import static java.lang.annotation.ElementType.*;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
+@Retention(RUNTIME)
+@Target(TYPE)
+@Repeatable(ComponentScans.class)
+public @interface ComponentScan {
+    public String[] packageNames();
+}

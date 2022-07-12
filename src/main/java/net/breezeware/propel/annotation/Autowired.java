@@ -1,4 +1,4 @@
-package net.breezeware.propel.hibernate.annotation;
+package net.breezeware.propel.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -10,6 +10,5 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 @Retention(RUNTIME)
 @Target(FIELD)
-public @interface Column {
-//    String name();
+public @interface Autowired {
 }
