@@ -31,8 +31,8 @@ public class Application {
 
         TransactionServiceImpl transactionServiceImpl = applicationContext.getBean(TransactionServiceImpl.class);
         int totalTransaction1 = transactionServiceImpl.getTotalTransaction("1234");
-        int totalTransaction2 = transactionServiceImpl.getTotalTransaction("4321");
         System.out.println("totalTransaction1 - " + totalTransaction1);
+        int totalTransaction2 = transactionServiceImpl.getTotalTransaction("4321");
         System.out.println("totalTransaction2 - " + totalTransaction2);
 
     }

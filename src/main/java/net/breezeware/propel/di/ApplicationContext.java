@@ -7,9 +7,14 @@ import net.breezeware.propel.annotation.Configuration;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -65,13 +70,26 @@ public class ApplicationContext {
 //                            System.out.println(classFileName);
                             Class<?> aClass = Class.forName(classFileName);
                             if (aClass.isAnnotationPresent(Component.class)) {
-                                Object aClassObj = aClass.getConstructor().newInstance();
-                                beanContext.put(aClass, aClassObj);
+
+                                var startInstant = Instant.now();
+//                                Object aClassObj = aClass.getConstructor().newInstance();
+//                                beanContext.put(aClass, aClassObj);
+                                MethodHandles.Lookup lookup = MethodHandles.lookup();
+                                Class<?> tClass = lookup.findClass(classFileName);
+//                                System.out.println("Class from methodhanlde api " + tClass);
+                                MethodType noArgsConstructorMethodType = MethodType.methodType(void.class);
+                                MethodHandle noArgsConstructor = lookup.findConstructor(tClass, noArgsConstructorMethodType);
+                                Object tClassObj = noArgsConstructor.invoke();
+                                beanContext.put(tClass, tClassObj);
+                                var endInstant = Instant.now();
+//                                System.out.println(Duration.between(startInstant, endInstant).getNano());
 //                                System.out.println("beanContext - " + beanContext.toString());
                             }
                         }
                     } catch (FileNotFoundException | ClassNotFoundException | InvocationTargetException |
                              NoSuchMethodException | IllegalAccessException | InstantiationException e) {
+                        throw new RuntimeException(e);
+                    } catch (Throwable e) {
                         throw new RuntimeException(e);
                     }
                 }
